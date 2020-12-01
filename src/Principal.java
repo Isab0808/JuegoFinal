@@ -124,6 +124,36 @@ public class Principal extends PApplet{
 				image(pantalla[8], xBotonInstrucciones, yBotonInstrucciones);}
 					
 			break;
+			
+		case 3:
+		//INSTRUCCIONES NIVEL 1
+			//Imagen Instrucciones Nivel 1
+			imageMode(CENTER);
+			image(pantalla[9], 600, 350);
+			imageMode(CORNER);
+			
+			int x = 25;
+			int y = 25;
+			for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 10; j++) {
+				switch (mapa [i][j]) {
+				case 0:
+					fill(0);
+				break;
+				case 1:
+					fill(255,255,0);
+				break;}
+				rectMode(CENTER);
+				rect(x,y, 68, 68);
+				rectMode(CORNER);
+				x+= 68;
+				if (x >= 700) {
+					x = 25;
+					y += 68;}
+			}	
+		}
+						
+			break;
 		}
 	}
 	
@@ -174,6 +204,29 @@ public class Principal extends PApplet{
 				&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
 				estado = 2;}
 					
+			break;
+			
+		case 2:
+		//INSTRUCCIONES NIVEL 1
+			//Imagen Instrucciones Nivel 1
+			imageMode(CENTER);
+			image(pantalla[6], 600, 350);
+			imageMode(CORNER);
+						
+			// BOTON INICIO
+			// Imagen Boton Instrucciones Nivel 1
+			image(pantalla[7], xBotonInstrucciones, yBotonInstrucciones);
+						
+			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton Instrucciones Oprimido
+			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 
+				&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
+				image(pantalla[8], xBotonInstrucciones, yBotonInstrucciones);}
+			
+			// Cuando se le de clic en Boton Inicio pasar a la pantalla Instrucciones Generales
+			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 
+				&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
+				estado = 3;}
+						
 			break;
 		}
 	}
