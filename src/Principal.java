@@ -144,13 +144,11 @@ public class Principal extends PApplet{
 					fill(255,255,0);
 				break;}
 				rectMode(CENTER);
-				rect(x,y, 68, 68);
+				rect(x,y, 50, 50);
 				rectMode(CORNER);
-				x+= 68;
-				if (x >= 700) {
-					x = 25;
-					y += 68;}
-			}	
+				x+= 50;
+			}
+				y+= 50;
 		}
 						
 			break;
