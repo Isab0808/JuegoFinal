@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -10,20 +12,28 @@ public class Principal extends PApplet{
 	@Override
 	public void settings() {
 		size(1200, 700);
+		
+	
 	}
 	
+// Arreglo de imagenes
 	PImage[] pantalla;
 	
+// Para el switch de las pantallas
 	int estado;
+	
+// Arraylist
+	private ArrayList<Enemigo> enemigo;
 	
 // x y y de Boton Inicio
 	int xBotonInicio;
 	int yBotonInicio;
 	
 // x y y de Boton Instrucciones
-		int xBotonInstrucciones;
-		int yBotonInstrucciones;
+	int xBotonInstrucciones;
+	int yBotonInstrucciones;
 	
+// Matriz del escenario
 	int [][] mapa;
 	
 	@Override
@@ -50,6 +60,10 @@ public class Principal extends PApplet{
 		
 		estado = 0;
 		
+		enemigo = new ArrayList<Enemigo>();
+		enemigo.add(new Fuego(100,40));
+		enemigo.add(new Fuego(906,700));
+		
 	// x y y de Boton Inicio
 		xBotonInicio = 480;
 		yBotonInicio = 430;
@@ -58,12 +72,13 @@ public class Principal extends PApplet{
 		xBotonInstrucciones= 1060;
 		yBotonInstrucciones = 565;
 		
-		mapa = new int [10][10];
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
+		mapa = new int [6][9];
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 9; j++) {
 				mapa [i][j] = 0;
 			}
 		}
+	
 	}
 	
 	@Override
@@ -132,24 +147,35 @@ public class Principal extends PApplet{
 			image(pantalla[9], 600, 350);
 			imageMode(CORNER);
 			
-			int x = 25;
-			int y = 25;
-			for (int i = 0; i < 10; i++) {
-				for (int j = 0; j < 10; j++) {
-				switch (mapa [i][j]) {
-				case 0:
-					fill(0);
-				break;
-				case 1:
-					fill(255,255,0);
-				break;}
-				rectMode(CENTER);
-				rect(x,y, 50, 50);
-				rectMode(CORNER);
-				x+= 50;
+			int x = 53;
+			int y = 55;
+			
+		//For para crear el escenario con una Matriz
+			for (int i = 0; i < 6; i++) {
+				for (int j = 0; j < 9; j++) {
+					switch (mapa [i][j]) {
+					case 40:
+						fill(0);
+						break;
+					case 41:
+						fill(255, 255,255);
+						break;
+					}
+					rectMode(CENTER);
+					rect(x, y, 112,118);
+					rectMode(CORNER);
+					x+=112;
+					if(x>=1006) {
+						x=53;
+						y+=118;}
+				}
 			}
-				y+= 50;
-		}
+			
+		//For para pintar y mover enemigos
+			for (int i = 0; i < enemigo.size(); i++) {
+				enemigo.get(i).pintar(this); 
+				enemigo.get(i).moverVertical();
+			}
 						
 			break;
 		}
