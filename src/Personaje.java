@@ -16,12 +16,11 @@ public class Personaje {
 	Mapa refMapa;
 	Extintor refExtintorInventario;
 	
-	int x, y, col, fil, vidas;
+	int x, y, col, fil;
 	
 	public Personaje(int fil, int col, Mapa refMapa) {
 		this.fil = fil;
 		this.col = col;
-		this.vidas = 100;
 		this.x =16+(col*112);
 		this.y =20+(fil*118);
 		this.refMapa = refMapa;

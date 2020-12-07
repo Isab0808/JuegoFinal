@@ -68,13 +68,17 @@ public class Principal extends PApplet{
 	int xBotonInstrucciones;
 	int yBotonInstrucciones;
 	
+// x y y de Boton Nueva Patida
+	int xBotonNuevaPartida;
+	int yBotonNuevaPartida;
+	
 // Temporizador
 	int segundos;
 	int minutos;
 	
 	@Override
 	public void setup() {
-		pantalla = new PImage[18];
+		pantalla = new PImage[19];
 		pantalla[0] = loadImage("PantallaInicio.jpg");
 		pantalla[1] = loadImage("BotonInicio.png");
 		pantalla[2] = loadImage("BotonInicioOprimido.png");
@@ -93,6 +97,7 @@ public class Principal extends PApplet{
 		pantalla[15] = loadImage("Muro1.png");
 		pantalla[16] = loadImage("Muro2.png");
 		pantalla[17] = loadImage("GameOver.jpg");
+		pantalla[18] = loadImage("NuevaPartidaN1Oprimido.png");
 		
 	//Cargando las imagenes: Fuego, manguera, muro, etc..
 		fuego = loadImage("Ene.FuegoN1.png");
@@ -142,6 +147,10 @@ public class Principal extends PApplet{
 	// x y y de Boton Instrucciones
 		xBotonInstrucciones= 1060;
 		yBotonInstrucciones = 565;
+		
+	// x y y de Boton Instrucciones
+		xBotonNuevaPartida= 1075;
+		yBotonNuevaPartida = 565;
 		
 	// Temporizador
 		segundos = 59;
@@ -213,6 +222,15 @@ public class Principal extends PApplet{
 			imageMode(CENTER);
 			image(pantalla[9], 600, 350);
 			imageMode(CORNER);
+			
+			// BOTON ATRAS
+			// Imagen Boton Atras
+			image(pantalla[10], xBotonNuevaPartida, yBotonNuevaPartida);
+								
+			// Si esta el mouse encima del Boton Atras mostrar imagen Boton Atras Oprimido
+			if (mouseX > xBotonNuevaPartida && mouseX < xBotonNuevaPartida + 58 
+				&& mouseY > yBotonNuevaPartida && mouseY < yBotonNuevaPartida + 71) {
+				image(pantalla[18], xBotonNuevaPartida, yBotonNuevaPartida);}
 		
 			temporizador();
 			
@@ -381,6 +399,20 @@ public class Principal extends PApplet{
 			image(pantalla[9], 600, 350);
 			imageMode(CORNER);
 		
+			// BOTON ATRAS
+			// Imagen Boton Atras
+			image(pantalla[10], xBotonNuevaPartida, yBotonNuevaPartida);
+											
+			// Si esta el mouse encima del Boton Atras mostrar imagen Boton Atras Oprimido
+			if (mouseX > xBotonNuevaPartida && mouseX < xBotonNuevaPartida + 58 
+				&& mouseY > yBotonNuevaPartida && mouseY < yBotonNuevaPartida + 71) {
+				image(pantalla[18], xBotonNuevaPartida, yBotonNuevaPartida);}
+			
+			// Cuando se le de clic en Boton Atras pasar a la pantalla de Inicio
+			if (mouseX > xBotonNuevaPartida && mouseX < xBotonNuevaPartida + 58 
+				&& mouseY > yBotonNuevaPartida && mouseY < yBotonNuevaPartida + 71) {
+				estado = 0;}
+						
 			temporizador();
 			
 			mapa.pintar(this, muro1, muro2, extintor);

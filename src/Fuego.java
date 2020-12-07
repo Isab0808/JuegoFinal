@@ -2,17 +2,17 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Fuego extends Enemigo {
+// PImage Enemigo: Fuego
 	Principal refPrincipal;
 	PImage fuego;
-	protected boolean e1, e2;
 	Fuego myFuego;
-	int dañoEne;
+	
+	protected boolean e1, e2;
 	
 	public Fuego(int x, int y) {
 		super(x, y);
 		this.e1 = true;
 		this.e2 = false;
-		this.dañoEne = 25;
 	}
 
 	@Override
@@ -64,9 +64,5 @@ public class Fuego extends Enemigo {
 	
 	public int getY() {
 		return y;}
-	
-	public int getDañoEne() {
-		return dañoEne;
-	}
 
 }
