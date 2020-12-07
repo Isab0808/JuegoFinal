@@ -1,8 +1,14 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public abstract class Enemigo {
 
-	protected int x, y;
+	protected int x, y, x1, y1;
+	
+// PImage Enemigo: Fuego
+	Principal refPrincipal;
+	PImage fuego;
+	Fuego myFuego;
 	
 	public Enemigo() {
 		this.x = (int) (Math.random() * 1006);
@@ -14,15 +20,25 @@ public abstract class Enemigo {
 		this.y = y;
 	}
 
-	public abstract void pintar(PApplet app);
+	public void pintar(PApplet app, PImage fuego) {
+		this.fuego = fuego;
+		fuego = loadImage("Ene.FuegoN1.png");//porque no sirve?
+	}
+		
+	protected abstract PImage loadImage(String string);
 
-	public void moverHorizontal() {
+	public void moverHorizontal(PImage fuego) {
 		x++;
-
 	}
 
-	public void moverVertical() {
+	public void moverVertical(PImage fuego) {
 		y++;
 	}
+public int getX() {
+	return x;
+}
+public int getY() {
+	return y;
+}
 	
 }
