@@ -7,12 +7,16 @@ public class Fuego extends Enemigo {
 	PImage fuego;
 	Fuego myFuego;
 	
+	Mapa refMapa;
+	
+	protected int x, y;
 	protected boolean e1, e2;
 	
-	public Fuego(int x, int y) {
-		super(x, y);
-		this.e1 = true;
-		this.e2 = false;
+	public Fuego(int fil, int col, PImage fuego) {
+		super(fil, col);
+		this.x =3+(col*67);
+		this.y =23+(fil*67);
+		this.fuego = fuego;
 	}
 
 	@Override
@@ -20,43 +24,44 @@ public class Fuego extends Enemigo {
 		app.image(fuego, x, y);
 	}
 	
+	@Override
+	protected PImage loadImage(String String) {
+		fuego = loadImage("Ene.FuegoN1.png");
+		return null;
+	}
+	
+	@Override
 	public void moverVertical(PImage fuego) {
 		if (e1) {
 			e2 = false;
 			y++;
 			if (y >= 700) {
-				e2 = true;
-			}
+				e2 = true;}
 		}
+		
 		if (e2) {
 			e1 = false;
 			y--;
 			if (y <= 0) {
-				e1 = true;
-			}
+				e1 = true;}
 		}
 	}
-
-	public void moverHorizontal(PImage fuego) {//aún no está en funcionamiento
+	
+	@Override
+	public void moverHorizontal(PImage String) {
 		if (e1) {
 			e2 = false;
 			x++;
-			if (x >= 975) {
-				e2 = true;
-			}
+			if (x >= 700) {
+				e2 = true;}
 		}
+		
 		if (e2) {
 			e1 = false;
 			x--;
 			if (x <= 0) {
-				e1 = true;
-			}
+				e1 = true;}
 		}
-	}
-	
-	protected PImage loadImage(String string) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public int getX() {
@@ -64,5 +69,7 @@ public class Fuego extends Enemigo {
 	
 	public int getY() {
 		return y;}
+
+	
 
 }

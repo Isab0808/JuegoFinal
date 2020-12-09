@@ -112,33 +112,32 @@ public class Principal extends PApplet{
 		
 	//Llamar clases
 		mapa = new Mapa ();
-		personaje = new Personaje(4,5, mapa);
+		personaje = new Personaje(6,4, mapa);
 		//extintorH = new Extintor(5, 8, extintor);
 		
 	//Inicializar el arraylist de enemigo: Fuego y agregar nuevos
 		listaEnemigos = new ArrayList<>();
 		
-		int x = 12;
+		/*int x = 12;
 		int y = 0;
 		for (int i = 0; i < 2; i++) {
 			Fuego enemigo = new Fuego(x, y);
 			listaEnemigos.add(enemigo);
-			x+= 895;}
+			x+= 895;}*/
 		
-		/*myFuego = new Fuego(250, 250);
-		
+		myFuego = new Fuego(0, 0, fuego);
 		EnemyV = new ArrayList<Enemigo>();
-		EnemyV.add(new Fuego(12, 0));
-		EnemyV.add(new Fuego(906, 700));
+		EnemyV.add(new Fuego(7, 2, fuego));
+		EnemyV.add(new Fuego(1, 14, fuego));
 
-		EnemyH = new ArrayList<Enemigo>();
-		EnemyH.add(new Fuego(25, 100));*/
+		/*EnemyH = new ArrayList<Enemigo>();
+		EnemyH.add(new Fuego(25, 100, fuego));*/
 		
 	//Inicializar el arraylist de herramienta: Manguera y agregar nuevos
 		myManguera = new Manguera(0, 0, manguera);
 		listaManguera = new ArrayList<Manguera>();
-		listaManguera.add(new Manguera(0, 5, manguera));
-		listaManguera.add(new Manguera(3, 0, manguera));
+		listaManguera.add(new Manguera(3, 9, manguera));
+		listaManguera.add(new Manguera(9, 3, manguera));
 		
 	// x y y de Boton Inicio
 		xBotonInicio = 480;
@@ -244,15 +243,19 @@ public class Principal extends PApplet{
 			personaje.pintar(this, personajeM, extintor);
 			
 		//For para pintar y mover el Enemigo: Fuego
-			/*for (int i = 0; i < EnemyV.size(); i++) {
+			for (int i = 0; i < EnemyV.size(); i++) {
 				EnemyV.get(i).pintar(this, fuego);
-				EnemyV.get(i).moverVertical(fuego);}*/		
+				EnemyV.get(i).moverVertical(fuego);}
+			
+			/*for (int i = 0; i < EnemyH.size(); i++) {
+				EnemyH.get(i).pintar(this, fuego);
+				EnemyH.get(i).moverHorizontal(fuego);}*/
 			
 		//For para pintar y mover el Enemigo: Fuego
-			for (int i = 0; i < listaEnemigos.size(); i++) {
+			/*for (int i = 0; i < listaEnemigos.size(); i++) {
 				Fuego enemigoActual = listaEnemigos.get(i);
 				enemigoActual.pintar(this, fuego);
-				enemigoActual.moverVertical(fuego);}
+				enemigoActual.moverVertical(fuego);}*/
 			
 			break;
 			
@@ -306,6 +309,7 @@ public class Principal extends PApplet{
 		switch (key) {
 		case 'w':
 			personaje.mover("arriba");
+			println("Clic");
 			break;
 		case 'a':
 			personaje.mover("izquierda");
@@ -430,10 +434,10 @@ public class Principal extends PApplet{
 				EnemyV.get(i).moverVertical(fuego);}*/		
 			
 		//For para pintar y mover el Enemigo: Fuego
-			for (int i = 0; i < listaEnemigos.size(); i++) {
+			/*for (int i = 0; i < listaEnemigos.size(); i++) {
 				Fuego enemigoActual = listaEnemigos.get(i);
 				enemigoActual.pintar(this, fuego);
-				enemigoActual.moverVertical(fuego);}
+				enemigoActual.moverVertical();}*/
 				break;
 				
 		case 4:

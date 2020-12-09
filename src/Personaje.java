@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 
 public class Personaje {
@@ -21,16 +22,18 @@ public class Personaje {
 	public Personaje(int fil, int col, Mapa refMapa) {
 		this.fil = fil;
 		this.col = col;
-		this.x =16+(col*112);
-		this.y =20+(fil*118);
+		this.x =34+(col*67);
+		this.y =45+(fil*67);
 		this.refMapa = refMapa;
 	}
 	
 	public void pintar(PApplet app, PImage personajeM, PImage extintor) {
+		app.imageMode(PConstants.CENTER);
 		app.image(personajeM, x, y);
 		if (refExtintorInventario != null) {
 			refExtintorInventario.pintar(app, extintor, this);
 		}
+		app.imageMode(PConstants.CORNER);
 
 	}
 	
@@ -43,8 +46,8 @@ public class Personaje {
 			if(valorDestino == 0) {
 				fil = fil-1;
 				
-				this.x =16+(col*112);
-				this.y =20+(fil*118);
+				this.x =34+(col*67);
+				this.y =45+(fil*67);
 				
 				if(refExtintorInventario == null && refMapa.validarExtintor(x,y)) {
 					refExtintorInventario = refMapa.getExtintor();
@@ -56,8 +59,8 @@ public class Personaje {
 			if(valorDestino == 0) {
 				fil = fil+1;
 				
-				this.x =16+(col*112);
-				this.y =20+(fil*118);
+				this.x =34+(col*67);
+				this.y =45+(fil*67);
 				
 				if(refExtintorInventario == null && refMapa.validarExtintor(x,y)) {
 					refExtintorInventario = refMapa.getExtintor();
@@ -70,8 +73,8 @@ public class Personaje {
 			if(valorDestino == 0) {
 				col = col+1;
 				
-				this.x =16+(col*112);
-				this.y =20+(fil*118);
+				this.x =34+(col*67);
+				this.y =45+(fil*67);
 				
 				if(refExtintorInventario == null && refMapa.validarExtintor(x,y)) {
 					refExtintorInventario = refMapa.getExtintor();
@@ -84,8 +87,8 @@ public class Personaje {
 			if(valorDestino == 0) {
 				col = col-1;
 				
-				this.x =16+(col*112);
-				this.y =20+(fil*118);
+				this.x =34+(col*67);
+				this.y =45+(fil*67);
 				
 				if(refExtintorInventario == null && refMapa.validarExtintor(x,y)) {
 					refExtintorInventario = refMapa.getExtintor();
