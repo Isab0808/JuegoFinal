@@ -10,8 +10,8 @@ public class Manguera extends Herramienta {
 	
 	public Manguera(int fil, int col, PImage manguera) {
 		super(fil, col);
-		this.x =9+(col*67);
-		this.y =23+(fil*67);
+		this.x =15+(col*112);
+		this.y =20+(fil*118);
 		this.manguera = manguera;
 		
 	}

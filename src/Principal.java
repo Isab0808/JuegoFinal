@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Principal extends PApplet{
+public class Principal extends PApplet {
 
-	private ArrayList<Fuego>listaEnemigos;
-	
+	private ArrayList<Fuego> listaEnemigos;
+
 	public static void main(String[] args) {
 		PApplet.main("Principal");
 	}
@@ -15,70 +15,66 @@ public class Principal extends PApplet{
 	public void settings() {
 		size(1200, 700);
 	}
-	
+
 // Arreglo de imagenes Pantalla
 	PImage[] pantalla;
-	
+
 // PImage Enemigo: Fuego
 	PImage fuego;
 	Fuego myFuego;
-	
+
 // PImage Personaje Mujer
 	PImage personajeM;
 	Personaje myPersonajeM;
-	
+
 // PImage Herramienta: Manguera
 	PImage manguera;
 	Manguera myManguera;
-	
+
 // PImage Herramienta: Extintor
 	PImage extintor;
-	
+
 // PImage Escenario: Muro1
 	PImage muro1;
 	Mapa myMuro1;
-	
+
 // PImage Escenario: Muro2
 	PImage muro2;
 	Mapa myMuro2;
 
 // Para el switch de las pantallas
 	int estado;
-	
+
 //Llamar clases
 	Mapa mapa;
 	Fuego fuegoE;
 	Personaje personaje;
-	//Extintor extintorH;
+	// Extintor extintorH;
 
 // Arraylist de Enemigo
 	ArrayList<Enemigo> EnemyV;
 	ArrayList<Enemigo> EnemyH;
-	
+
 	ArrayList<Enemigo> enemigo;
 
 // Arraylist de Herramienta: Manguera
 	ArrayList<Manguera> listaManguera;
-	
+
 // x y y de Boton Inicio
 	int xBotonInicio;
 	int yBotonInicio;
-	
+
 // x y y de Boton Instrucciones
 	int xBotonInstrucciones;
 	int yBotonInstrucciones;
-	
-// x y y de Boton Nueva Patida
-	int xBotonNuevaPartida;
-	int yBotonNuevaPartida;
-	
+
 // Temporizador
 	int segundos;
 	int minutos;
-	
+
 	@Override
 	public void setup() {
-		pantalla = new PImage[19];
+		pantalla = new PImage[18];
 		pantalla[0] = loadImage("PantallaInicio.jpg");
 		pantalla[1] = loadImage("BotonInicio.png");
 		pantalla[2] = loadImage("BotonInicioOprimido.png");
@@ -97,219 +93,231 @@ public class Principal extends PApplet{
 		pantalla[15] = loadImage("Muro1.png");
 		pantalla[16] = loadImage("Muro2.png");
 		pantalla[17] = loadImage("GameOver.jpg");
-		pantalla[18] = loadImage("NuevaPartidaN1Oprimido.png");
-		
-	//Cargando las imagenes: Fuego, manguera, muro, etc..
+
+		// Cargando las imagenes: Fuego, manguera, muro, etc..
 		fuego = loadImage("Ene.FuegoN1.png");
 		personajeM = loadImage("PersonajeMujer.png");
 		manguera = loadImage("Herra.MangueraN1.png");
 		extintor = loadImage("Herra.ExtintorN1.png");
 		muro1 = loadImage("Muro1.png");
 		muro2 = loadImage("Muro2.png");
-		
-	// Para el switch de las pantallas
+
+		// Para el switch de las pantallas
 		estado = 0;
-		
-	//Llamar clases
-		mapa = new Mapa ();
-		personaje = new Personaje(6,4, mapa);
-		//extintorH = new Extintor(5, 8, extintor);
-		
-	//Inicializar el arraylist de enemigo: Fuego y agregar nuevos
+
+		// Llamar clases
+		mapa = new Mapa();
+		personaje = new Personaje(4, 5, mapa);
+		// extintorH = new Extintor(5, 8, extintor);
+
+		// Inicializar el arraylist de enemigo: Fuego y agregar nuevos
 		listaEnemigos = new ArrayList<>();
-		
-		/*int x = 12;
+
+		int x = 12;
 		int y = 0;
 		for (int i = 0; i < 2; i++) {
 			Fuego enemigo = new Fuego(x, y);
 			listaEnemigos.add(enemigo);
-			x+= 895;}*/
-		
-		myFuego = new Fuego(0, 0, fuego);
-		EnemyV = new ArrayList<Enemigo>();
-		EnemyV.add(new Fuego(7, 2, fuego));
-		EnemyV.add(new Fuego(1, 14, fuego));
+			x += 895;
+		}
 
-		/*EnemyH = new ArrayList<Enemigo>();
-		EnemyH.add(new Fuego(25, 100, fuego));*/
-		
-	//Inicializar el arraylist de herramienta: Manguera y agregar nuevos
+		/*
+		 * myFuego = new Fuego(250, 250);
+		 * 
+		 * EnemyV = new ArrayList<Enemigo>(); EnemyV.add(new Fuego(12, 0));
+		 * EnemyV.add(new Fuego(906, 700));
+		 * 
+		 * EnemyH = new ArrayList<Enemigo>(); EnemyH.add(new Fuego(25, 100));
+		 */
+
+		// Inicializar el arraylist de herramienta: Manguera y agregar nuevos
 		myManguera = new Manguera(0, 0, manguera);
 		listaManguera = new ArrayList<Manguera>();
-		listaManguera.add(new Manguera(3, 9, manguera));
-		listaManguera.add(new Manguera(9, 3, manguera));
-		
-	// x y y de Boton Inicio
+		listaManguera.add(new Manguera(0, 5, manguera));
+		listaManguera.add(new Manguera(3, 0, manguera));
+
+		// x y y de Boton Inicio
 		xBotonInicio = 480;
 		yBotonInicio = 430;
-		
-	// x y y de Boton Instrucciones
-		xBotonInstrucciones= 1060;
+
+		// x y y de Boton Instrucciones
+		xBotonInstrucciones = 1060;
 		yBotonInstrucciones = 565;
-		
-	// x y y de Boton Instrucciones
-		xBotonNuevaPartida= 1075;
-		yBotonNuevaPartida = 565;
-		
-	// Temporizador
+
+		// Temporizador
 		segundos = 59;
 		minutos = 2;
 	}
-	
+
 	@Override
 	public void draw() {
-		System.out.println(mouseX + "," + mouseY);
-		
+		//System.out.println(mouseX + "," + mouseY);
+
 		switch (estado) {
 		case 0:
-		//INICIO
-			//Imagen Inicio
+			// INICIO
+			// Imagen Inicio
 			imageMode(CENTER);
 			image(pantalla[0], 600, 350);
 			imageMode(CORNER);
-			
+
 			// BOTON INICIO
 			// Imagen Boton Inicio
 			image(pantalla[1], xBotonInicio, yBotonInicio);
-			
+
 			// Si esta el mouse encima del Boton Inicio mostrar imagen Boton Inicio Oprimido
-			if (mouseX > xBotonInicio && mouseX < xBotonInicio + 106 
-				&& mouseY > yBotonInicio && mouseY < yBotonInicio + 107) {
-				image(pantalla[2], xBotonInicio, yBotonInicio);}
-			
+			if (mouseX > xBotonInicio && mouseX < xBotonInicio + 106 && mouseY > yBotonInicio
+					&& mouseY < yBotonInicio + 107) {
+				image(pantalla[2], xBotonInicio, yBotonInicio);
+			}
+
 			break;
-			
+
 		case 1:
-		//INSTRUCCIONES GENERALES
-			//Imagen Instrucciones Generales
+			// INSTRUCCIONES GENERALES
+			// Imagen Instrucciones Generales
 			imageMode(CENTER);
 			image(pantalla[3], 600, 350);
 			imageMode(CORNER);
-				
+
 			// BOTON INICIO
 			// Imagen Boton Instrucciones
 			image(pantalla[4], xBotonInstrucciones, yBotonInstrucciones);
-				
-			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton Instrucciones Oprimido
-			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 
-				&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
-				image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);}
-				
-				break;
-				
+
+			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton
+			// Instrucciones Oprimido
+			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
+					&& mouseY < yBotonInstrucciones + 107) {
+				image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);
+			}
+
+			break;
+
 		case 2:
-		//INSTRUCCIONES NIVEL 1
-			//Imagen Instrucciones Nivel 1
+			// INSTRUCCIONES NIVEL 1
+			// Imagen Instrucciones Nivel 1
 			imageMode(CENTER);
 			image(pantalla[6], 600, 350);
 			imageMode(CORNER);
-					
+
 			// BOTON INSTRUCCIONES NIVEL 1
 			// Imagen Boton Instrucciones Nivel 1
 			image(pantalla[7], xBotonInstrucciones, yBotonInstrucciones);
-					
-			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton Instrucciones Oprimido
-			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 
-				&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
-				image(pantalla[8], xBotonInstrucciones, yBotonInstrucciones);}
-					
+
+			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton
+			// Instrucciones Oprimido
+			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
+					&& mouseY < yBotonInstrucciones + 107) {
+				image(pantalla[8], xBotonInstrucciones, yBotonInstrucciones);
+			}
+
 			break;
-			
+
 		case 3:
-		//ESCENARIO NIVEL 1
-			//Imagen Escenario Nivel 1
+			// ESCENARIO NIVEL 1
+			// Imagen Escenario Nivel 1
 			imageMode(CENTER);
 			image(pantalla[9], 600, 350);
 			imageMode(CORNER);
-			
-			// BOTON ATRAS
-			// Imagen Boton Atras
-			image(pantalla[10], xBotonNuevaPartida, yBotonNuevaPartida);
-								
-			// Si esta el mouse encima del Boton Atras mostrar imagen Boton Atras Oprimido
-			if (mouseX > xBotonNuevaPartida && mouseX < xBotonNuevaPartida + 58 
-				&& mouseY > yBotonNuevaPartida && mouseY < yBotonNuevaPartida + 71) {
-				image(pantalla[18], xBotonNuevaPartida, yBotonNuevaPartida);}
-		
+
 			temporizador();
-			
+
 			mapa.pintar(this, muro1, muro2, extintor);
-			
-		//For para pintar la Herramienta: Manguera
+
+			// For para pintar la Herramienta: Manguera
 			for (int i = 0; i < listaManguera.size(); i++) {
-				listaManguera.get(i).pintar(this, manguera);}
-			
-			//extintorH.pintar(this, extintor);
+				listaManguera.get(i).pintar(this, manguera);
+			}
+
+			// extintorH.pintar(this, extintor);
 			personaje.pintar(this, personajeM, extintor);
-			
-		//For para pintar y mover el Enemigo: Fuego
-			for (int i = 0; i < EnemyV.size(); i++) {
-				EnemyV.get(i).pintar(this, fuego);
-				EnemyV.get(i).moverVertical(fuego);}
-			
-			/*for (int i = 0; i < EnemyH.size(); i++) {
-				EnemyH.get(i).pintar(this, fuego);
-				EnemyH.get(i).moverHorizontal(fuego);}*/
-			
-		//For para pintar y mover el Enemigo: Fuego
-			/*for (int i = 0; i < listaEnemigos.size(); i++) {
+
+			// For para pintar y mover el Enemigo: Fuego
+			/*
+			 * for (int i = 0; i < EnemyV.size(); i++) { EnemyV.get(i).pintar(this, fuego);
+			 * EnemyV.get(i).moverVertical(fuego);}
+			 */
+
+			// For para pintar y mover el Enemigo: Fuego
+			for (int i = 0; i < listaEnemigos.size(); i++) {
 				Fuego enemigoActual = listaEnemigos.get(i);
+
 				enemigoActual.pintar(this, fuego);
-				enemigoActual.moverVertical(fuego);}*/
-			
-			break;
-			
-		case 4:
-			//GAME OVER - PERDIO
-				//Imagen Game Over
-				imageMode(CENTER);
-				image(pantalla[17], 600, 350);
-				imageMode(CORNER);
-				
-				// BOTON INSTRUCCIONES NIVEL 1
-				// Imagen Boton Instrucciones Nivel 1
-				image(pantalla[4], xBotonInstrucciones, yBotonInstrucciones);
+				enemigoActual.moverVertical(fuego);
+				//eliminar malos
+				if (personaje.getX() >= enemigoActual.getX() && personaje.getX()
+						+ personajeM.width < enemigoActual.getX() + fuego.width) {
+					System.out.println("have extintor");
+					if (personaje.getY() >= enemigoActual.getY() && personaje.getY()
+							+ personajeM.height < enemigoActual.getY() + fuego.height) {
+						if (personaje.haveExtintor()) {
+							listaEnemigos.remove(i);
+							
+						}else {
+							//AWUI PONE PARA QUE LE QUITE VIDA
+						}
 						
-				// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton Instrucciones Oprimido
-				if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 
-					&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
-					image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);}
+					}
+				}
 				
-				break;
+			}
+
+			break;
+
+		case 4:
+			// GAME OVER - PERDIO
+			// Imagen Game Over
+			imageMode(CENTER);
+			image(pantalla[17], 600, 350);
+			imageMode(CORNER);
+
+			// BOTON INSTRUCCIONES NIVEL 1
+			// Imagen Boton Instrucciones Nivel 1
+			image(pantalla[4], xBotonInstrucciones, yBotonInstrucciones);
+
+			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton
+			// Instrucciones Oprimido
+			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
+					&& mouseY < yBotonInstrucciones + 107) {
+				image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);
+			}
+
+			break;
 		}
 	}
-	
+
 	public void temporizador() {
 		if (frameCount % 60 == 0 && minutos >= 0) {
-	        segundos--;}
-	    if (segundos == 0) {
-	        minutos--;
-	        segundos = 59;}
-	    if (minutos < 0) {
-	    	fill(255);
-	        textSize(23);
-	        text("0:00", 1082, 325);
-	    } else if (segundos <= 9) {
-	    	fill(255);
-	        textSize(23);
-	        text(minutos + ":0" + segundos, 1082, 325);
-	    } else if (segundos > 9) {
-	    	fill(255);
-	        textSize(23);
-	        text(minutos + ":" + segundos, 1082, 325);
-	    }
+			segundos--;
+		}
+		if (segundos == 0) {
+			minutos--;
+			segundos = 59;
+		}
+		if (minutos < 0) {
+			fill(255);
+			textSize(23);
+			text("0:00", 1082, 325);
+		} else if (segundos <= 9) {
+			fill(255);
+			textSize(23);
+			text(minutos + ":0" + segundos, 1082, 325);
+		} else if (segundos > 9) {
+			fill(255);
+			textSize(23);
+			text(minutos + ":" + segundos, 1082, 325);
+		}
 
-	    if (minutos < 0) {
-	        estado = 4;
-	    }
+		if (minutos < 0) {
+			estado = 4;
+		}
 	}
-	
+
 	@Override
 	public void keyPressed() {
 		switch (key) {
 		case 'w':
 			personaje.mover("arriba");
-			println("Clic");
 			break;
 		case 'a':
 			personaje.mover("izquierda");
@@ -320,149 +328,152 @@ public class Principal extends PApplet{
 		case 'd':
 			personaje.mover("derecha");
 			break;
-		default:	
+		default:
 		}
 	}
-	
+
 	@Override
 	public void mousePressed() {
 		switch (estado) {
 		case 0:
-		//INICIO
-			//Imagen Inicio
+			// INICIO
+			// Imagen Inicio
 			imageMode(CENTER);
 			image(pantalla[0], 600, 350);
 			imageMode(CORNER);
-			
+
 			// BOTON INICIO
 			// Imagen Boton Inicio
 			image(pantalla[1], xBotonInicio, yBotonInicio);
-			
+
 			// Si esta el mouse encima del Boton Inicio mostrar imagen Boton Inicio Oprimido
-			if (mouseX > xBotonInicio && mouseX < xBotonInicio + 106 
-				&& mouseY > yBotonInicio && mouseY < yBotonInicio + 107) {
-				image(pantalla[2], xBotonInicio, yBotonInicio);}
-			
-			// Cuando se le de clic en Boton Inicio pasar a la pantalla Instrucciones Generales
-			if (mouseX > xBotonInicio && mouseX < xBotonInicio + 106 
-				&& mouseY > yBotonInicio && mouseY < yBotonInicio + 107) {
-				estado = 1;}
-			
+			if (mouseX > xBotonInicio && mouseX < xBotonInicio + 106 && mouseY > yBotonInicio
+					&& mouseY < yBotonInicio + 107) {
+				image(pantalla[2], xBotonInicio, yBotonInicio);
+			}
+
+			// Cuando se le de clic en Boton Inicio pasar a la pantalla Instrucciones
+			// Generales
+			if (mouseX > xBotonInicio && mouseX < xBotonInicio + 106 && mouseY > yBotonInicio
+					&& mouseY < yBotonInicio + 107) {
+				estado = 1;
+			}
+
 			break;
-			
+
 		case 1:
-		//INSTRUCCIONES GENERALES
-			//Imagen Instrucciones Generales
+			// INSTRUCCIONES GENERALES
+			// Imagen Instrucciones Generales
 			imageMode(CENTER);
 			image(pantalla[3], 600, 350);
 			imageMode(CORNER);
-					
+
 			// BOTON INICIO
 			// Imagen Boton Instrucciones
 			image(pantalla[4], xBotonInstrucciones, yBotonInstrucciones);
-					
-			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton Instrucciones Oprimido
-			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 
-				&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
-				image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);}
-			
-			// Cuando se le de clic en Boton Inicio pasar a la pantalla Instrucciones Generales
-			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 
-				&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
-				estado = 2;}
-					
+
+			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton
+			// Instrucciones Oprimido
+			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
+					&& mouseY < yBotonInstrucciones + 107) {
+				image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);
+			}
+
+			// Cuando se le de clic en Boton Inicio pasar a la pantalla Instrucciones
+			// Generales
+			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
+					&& mouseY < yBotonInstrucciones + 107) {
+				estado = 2;
+			}
+
 			break;
-			
+
 		case 2:
-		//INSTRUCCIONES NIVEL 1
-			//Imagen Instrucciones Nivel 1
+			// INSTRUCCIONES NIVEL 1
+			// Imagen Instrucciones Nivel 1
 			imageMode(CENTER);
 			image(pantalla[6], 600, 350);
 			imageMode(CORNER);
-						
+
 			// BOTON INICIO
 			// Imagen Boton Instrucciones Nivel 1
 			image(pantalla[7], xBotonInstrucciones, yBotonInstrucciones);
-						
-			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton Instrucciones Oprimido
-			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 
-				&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
-				image(pantalla[8], xBotonInstrucciones, yBotonInstrucciones);}
-			
-			// Cuando se le de clic en Boton Inicio pasar a la pantalla Instrucciones Generales
-			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 
-				&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
-				estado = 3;}
-						
+
+			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton
+			// Instrucciones Oprimido
+			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
+					&& mouseY < yBotonInstrucciones + 107) {
+				image(pantalla[8], xBotonInstrucciones, yBotonInstrucciones);
+			}
+
+			// Cuando se le de clic en Boton Inicio pasar a la pantalla Instrucciones
+			// Generales
+			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
+					&& mouseY < yBotonInstrucciones + 107) {
+				estado = 3;
+			}
+
 			break;
-			
+
 		case 3:
-			//ESCENARIO NIVEL 1
-			//Imagen Escenario Nivel 1
+			// ESCENARIO NIVEL 1
+			// Imagen Escenario Nivel 1
 			imageMode(CENTER);
 			image(pantalla[9], 600, 350);
 			imageMode(CORNER);
-		
-			// BOTON ATRAS
-			// Imagen Boton Atras
-			image(pantalla[10], xBotonNuevaPartida, yBotonNuevaPartida);
-											
-			// Si esta el mouse encima del Boton Atras mostrar imagen Boton Atras Oprimido
-			if (mouseX > xBotonNuevaPartida && mouseX < xBotonNuevaPartida + 58 
-				&& mouseY > yBotonNuevaPartida && mouseY < yBotonNuevaPartida + 71) {
-				image(pantalla[18], xBotonNuevaPartida, yBotonNuevaPartida);}
-			
-			// Cuando se le de clic en Boton Atras pasar a la pantalla de Inicio
-			if (mouseX > xBotonNuevaPartida && mouseX < xBotonNuevaPartida + 58 
-				&& mouseY > yBotonNuevaPartida && mouseY < yBotonNuevaPartida + 71) {
-				estado = 0;}
-						
+
 			temporizador();
-			
+
 			mapa.pintar(this, muro1, muro2, extintor);
-			
-		//For para pintar la Herramienta: Manguera
+
+			// For para pintar la Herramienta: Manguera
 			for (int i = 0; i < listaManguera.size(); i++) {
-				listaManguera.get(i).pintar(this, manguera);}
-			
-			//extintorH.pintar(this, extintor);
+				listaManguera.get(i).pintar(this, manguera);
+			}
+
+			// extintorH.pintar(this, extintor);
 			personaje.pintar(this, personajeM, extintor);
-			
-		//For para pintar y mover el Enemigo: Fuego
-			/*for (int i = 0; i < EnemyV.size(); i++) {
-				EnemyV.get(i).pintar(this, fuego);
-				EnemyV.get(i).moverVertical(fuego);}*/		
-			
-		//For para pintar y mover el Enemigo: Fuego
-			/*for (int i = 0; i < listaEnemigos.size(); i++) {
+
+			// For para pintar y mover el Enemigo: Fuego
+			/*
+			 * for (int i = 0; i < EnemyV.size(); i++) { EnemyV.get(i).pintar(this, fuego);
+			 * EnemyV.get(i).moverVertical(fuego);}
+			 */
+
+			// For para pintar y mover el Enemigo: Fuego
+			for (int i = 0; i < listaEnemigos.size(); i++) {
 				Fuego enemigoActual = listaEnemigos.get(i);
 				enemigoActual.pintar(this, fuego);
-				enemigoActual.moverVertical();}*/
-				break;
-				
+				enemigoActual.moverVertical(fuego);
+			}
+			break;
+
 		case 4:
-			//GAME OVER - PERDIO
-				//Imagen Game Over
-				imageMode(CENTER);
-				image(pantalla[17], 600, 350);
-				imageMode(CORNER);
-				
-				// BOTON INSTRUCCIONES NIVEL 1
-				// Imagen Boton Instrucciones Nivel 1
-				image(pantalla[4], xBotonInstrucciones, yBotonInstrucciones);
-						
-				// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton Instrucciones Oprimido
-				if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 
-					&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
-					image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);}
-				
-				// Cuando se le de clic en Boton Siguiente pasar a la pantalla de Inicio
-				if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 
-					&& mouseY > yBotonInstrucciones && mouseY < yBotonInstrucciones + 107) {
-					estado = 0;}
-				
-				break;
-		
+			// GAME OVER - PERDIO
+			// Imagen Game Over
+			imageMode(CENTER);
+			image(pantalla[17], 600, 350);
+			imageMode(CORNER);
+
+			// BOTON INSTRUCCIONES NIVEL 1
+			// Imagen Boton Instrucciones Nivel 1
+			image(pantalla[4], xBotonInstrucciones, yBotonInstrucciones);
+
+			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton
+			// Instrucciones Oprimido
+			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
+					&& mouseY < yBotonInstrucciones + 107) {
+				image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);
+			}
+
+			// Cuando se le de clic en Boton Siguiente pasar a la pantalla de Inicio
+			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
+					&& mouseY < yBotonInstrucciones + 107) {
+				estado = 0;
+			}
+
+			break;
+
 		}
 	}
 

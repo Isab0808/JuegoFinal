@@ -3,7 +3,7 @@ import processing.core.PImage;
 
 public class Extintor extends Herramienta {
 
-	protected int x, y, tiempoVida;
+	protected int x, y;
 	
 // PImage Herramienta: Extintor
 	Principal refPrincipal;
@@ -12,8 +12,8 @@ public class Extintor extends Herramienta {
 	
 	public Extintor(int fil, int col, PImage extintor) {
 		super(fil, col);
-		this.x =9+(col*67);
-		this.y =23+(fil*67);
+		this.x =15+(col*112);
+		this.y =20+(fil*118);
 		this.extintor = extintor;
 	}
 
@@ -25,15 +25,15 @@ public class Extintor extends Herramienta {
 	public void pintar(PApplet app, PImage extintor, Personaje pj) {
 		app.image(extintor, pj.getX(), pj.getY());
 	}
+	
+	public void Proteger() {
+		
+	}
 
 	@Override
 	protected PImage loadImage(String string) {
 		extintor = loadImage("Herra.ExtintorN1.png");
 		return null;
-	}
-	
-	boolean validarPersonaje(int personajeX, int personajeY) {
-		return false;
 	}
 	
 	public int getX() {

@@ -3,24 +3,52 @@ import processing.core.PImage;
 
 public abstract class Enemigo {
 
-	protected int fil, col;
+	protected int x, y, x1, y1;
 	
 // PImage Enemigo: Fuego
 	Principal refPrincipal;
 	PImage fuego;
 	Fuego myFuego;
 	
-	public Enemigo(int fil, int col) {
-		this.fil = fil;
-		this.col = col;
+	public Enemigo() {
+		this.x = (int) (Math.random() * 1006);
+		this.y = (int) (Math.random() * 700);
+	}
+	
+	public Enemigo(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 
-	public abstract void pintar(PApplet app, PImage String);
+	public void pintar(PApplet app, PImage fuego) {
+		this.fuego = fuego;
+		fuego = loadImage("Ene.FuegoN1.png");
+	}
 		
 	protected abstract PImage loadImage(String string);
 
-	public abstract void moverVertical(PImage String);
+	public void moverHorizontal(PImage fuego) {
+		x++;
+	}
+
+	public void moverVertical(PImage fuego) {
+		y++;
+	}
 	
-	public abstract void moverHorizontal(PImage String);
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getWidth() {
+		return fuego.width;
+	}
+	
+	public int getHeight() {
+		return fuego.height;
+	}
 	
 }

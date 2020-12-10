@@ -1,5 +1,4 @@
 import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.core.PImage;
 
 public class Personaje {
@@ -17,24 +16,31 @@ public class Personaje {
 	Mapa refMapa;
 	Extintor refExtintorInventario;
 	
-	int x, y, col, fil;
+	double tiempoInicial;
+	
+	int x, y, col, fil, vidas;
 	
 	public Personaje(int fil, int col, Mapa refMapa) {
 		this.fil = fil;
 		this.col = col;
-		this.x =34+(col*67);
-		this.y =45+(fil*67);
+		this.vidas = 100;
+		this.x =16+(col*112);
+		this.y =20+(fil*118);
 		this.refMapa = refMapa;
+		tiempoInicial = 0;
 	}
 	
 	public void pintar(PApplet app, PImage personajeM, PImage extintor) {
-		app.imageMode(PConstants.CENTER);
 		app.image(personajeM, x, y);
 		if (refExtintorInventario != null) {
 			refExtintorInventario.pintar(app, extintor, this);
+			tiempo();
 		}
-		app.imageMode(PConstants.CORNER);
 
+	}
+	
+	public boolean haveExtintor()	{
+		return refExtintorInventario!=null;
 	}
 	
 	public void mover(String dir) {
@@ -46,11 +52,12 @@ public class Personaje {
 			if(valorDestino == 0) {
 				fil = fil-1;
 				
-				this.x =34+(col*67);
-				this.y =45+(fil*67);
+				this.x =16+(col*112);
+				this.y =20+(fil*118);
 				
 				if(refExtintorInventario == null && refMapa.validarExtintor(x,y)) {
 					refExtintorInventario = refMapa.getExtintor();
+					tiempoInicial = System.currentTimeMillis();
 				}
 			}
 			break;
@@ -59,11 +66,12 @@ public class Personaje {
 			if(valorDestino == 0) {
 				fil = fil+1;
 				
-				this.x =34+(col*67);
-				this.y =45+(fil*67);
+				this.x =16+(col*112);
+				this.y =20+(fil*118);
 				
 				if(refExtintorInventario == null && refMapa.validarExtintor(x,y)) {
 					refExtintorInventario = refMapa.getExtintor();
+					tiempoInicial = System.currentTimeMillis();
 				}
 			}
 			
@@ -73,11 +81,12 @@ public class Personaje {
 			if(valorDestino == 0) {
 				col = col+1;
 				
-				this.x =34+(col*67);
-				this.y =45+(fil*67);
+				this.x =16+(col*112);
+				this.y =20+(fil*118);
 				
 				if(refExtintorInventario == null && refMapa.validarExtintor(x,y)) {
 					refExtintorInventario = refMapa.getExtintor();
+					tiempoInicial = System.currentTimeMillis();
 				}
 			}
 			
@@ -87,11 +96,12 @@ public class Personaje {
 			if(valorDestino == 0) {
 				col = col-1;
 				
-				this.x =34+(col*67);
-				this.y =45+(fil*67);
+				this.x =16+(col*112);
+				this.y =20+(fil*118);
 				
 				if(refExtintorInventario == null && refMapa.validarExtintor(x,y)) {
 					refExtintorInventario = refMapa.getExtintor();
+					tiempoInicial = System.currentTimeMillis();
 				}
 			}
 			
@@ -100,11 +110,29 @@ public class Personaje {
 
 	}
 	
+	//temporizador
+	public void tiempo() {
+		double tiempoActual = System.currentTimeMillis();
+		if(tiempoActual-tiempoInicial > 15000) {
+			refExtintorInventario = null;
+		}
+	}
+	
 //GET ----
 	public int getX() {
 		return x;}
 	
 	public int getY() {
 		return y;}
+	
+	public int getWidht() {
+		return personajeM.width;
+	}
+	
+	public int getHeight() {
+		return personajeM.height;
+	}
+	
+	
 	
 }
