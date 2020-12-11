@@ -9,15 +9,22 @@ public abstract class Enemigo {
 	Principal refPrincipal;
 	PImage fuego;
 	Fuego myFuego;
+	int dañoEne;
 	
 	public Enemigo() {
 		this.x = (int) (Math.random() * 1006);
 		this.y = (int) (Math.random() * 700);
+		this.dañoEne = 1;
 	}
 	
+	public int getDañoEne() {
+		return dañoEne;
+	}
+
 	public Enemigo(int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.dañoEne = 1;
 	}
 
 	public void pintar(PApplet app, PImage fuego) {

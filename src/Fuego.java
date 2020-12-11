@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 
 public class Fuego extends Enemigo {
@@ -6,18 +7,18 @@ public class Fuego extends Enemigo {
 	PImage fuego;
 	protected boolean e1, e2;
 	Fuego myFuego;
-	int dañoEne;
 	
 	public Fuego(int x, int y) {
 		super(x, y);
 		this.e1 = true;
 		this.e2 = false;
-		this.dañoEne = 25;
 	}
 
 	@Override
 	public void pintar(PApplet app, PImage fuego) {
+		app.imageMode(PConstants.CENTER);
 		app.image(fuego, x, y);
+		app.imageMode(PConstants.CORNER);
 	}
 	
 	public void moverVertical(PImage fuego) {
