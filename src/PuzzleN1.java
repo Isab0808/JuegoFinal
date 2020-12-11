@@ -22,7 +22,7 @@ public class PuzzleN1 extends PApplet{
 	
 	public PuzzleN1(PApplet app, int size) {
 		xBolitaPrincipal = app.width / 2;
-		yBolitaPrincipal = app.height / 2;
+		yBolitaPrincipal = 410;
 		
 		xBolitas = new int [size];
 		yBolitas = new int [size];

@@ -132,7 +132,7 @@ public class Mapa {
 				switch (mapa[i][j]) {
 				case 0:
 					app.noStroke();
-					app.fill(255, 238, 176);
+					app.noFill();
 					app.rect(x, y, 67, 67);
 					break;
 				case 1:
