@@ -9,10 +9,6 @@ public class Personaje {
 	PImage personajePrincipal;
 	Personaje myPersonajeM;
 	
-// PImage Herramienta: Extintor
-	PImage extintor;
-	Extintor myExtintor;
-	
 //Referencia de las clases
 	Mapa refMapa;
 	Herramienta refExtintorInventario;

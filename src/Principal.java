@@ -16,9 +16,6 @@ public class Principal extends PApplet {
 	public void settings() {
 		size(1200, 700);
 	}
-	boolean win;
-	int nivelActual;
-
 // Arreglo de imagenes Pantalla
 	PImage[] pantalla;
 	PImage[] instrucciones;
@@ -34,6 +31,7 @@ public class Principal extends PApplet {
 	PImage fuego;
 	Fuego myFuego;
 	
+// PImage Personaje Seleccionado, para que aparezca en el escenario
 	PImage personajePrincipal;
 
 // PImage Personaje Mujer
@@ -62,6 +60,9 @@ public class Principal extends PApplet {
 // PImage Escenario: Muro2
 	PImage puertaAbierta;
 	Mapa myPuertaAbierta;
+	
+// PImage Puzzle
+	PImage puzzle;
 
 // Para el switch de las pantallas
 	int estado;
@@ -71,13 +72,6 @@ public class Principal extends PApplet {
 	Fuego fuegoE;
 	Personaje personaje;
 	PuzzleN1 puzzleN1;
-	// Extintor extintorH;
-
-// Arraylist de Enemigo
-	ArrayList<Enemigo> EnemyV;
-	ArrayList<Enemigo> EnemyH;
-
-	ArrayList<Enemigo> enemigo;
 
 // Arraylist de Herramienta: herramienta
 	ArrayList<Herramienta> listaHerramienta;
@@ -98,8 +92,16 @@ public class Principal extends PApplet {
 	int segundos;
 	int minutos;
 
+// Variable para las vidas del personaje
 	int inicio;
 	
+// Variable para saber si se gano
+	boolean win;
+	
+// Variable para cambiar de imagenes(estado) a medida que aumenta de nivel
+	int nivelActual;
+	
+// x y y de pantalla personaje: Personaje seleccionado
 	int xPM;
 	int yPM;
 	
@@ -207,8 +209,6 @@ public class Principal extends PApplet {
 		personajeSeleccionado[2] = loadImage("PersonajeMujer.png");
 		personajeSeleccionado[3] = loadImage("PersonajeHombre.png");
 		
-		
-		
 		// Cargando las imagenes: Fuego, herramienta, muro, etc..
 		fuego = loadImage("Ene.FuegoN1.png");
 		personajeM = loadImage("PersonajeMujer.png");
@@ -218,6 +218,7 @@ public class Principal extends PApplet {
 		muro2 = loadImage("Muro2.png");
 		puertaCerrada = loadImage("PuertaCerrada.png");
 		puertaAbierta = loadImage("PuertaAbierta.png");
+		puzzle = loadImage("Puzzle.jpg");
 
 		// Para el switch de las pantallas
 		estado = 0;
@@ -226,34 +227,6 @@ public class Principal extends PApplet {
 		mapa = new Mapa();
 		personaje = new Personaje(6, 5, mapa);
 		puzzleN1 = new PuzzleN1(this, nivelActual*2+6);
-		// extintorH = new Extintor(5, 8, extintor);
-
-		// Inicializar el arraylist de enemigo: Fuego y agregar nuevos
-		listaEnemigos = new ArrayList<>();
-
-		int x = 300;
-		int y = 0;
-		for (int i = 0; i < 2; i++) {
-			Fuego enemigo = new Fuego(x, y);
-			listaEnemigos.add(enemigo);
-			x += 673;
-		}
-
-		/*
-		 * myFuego = new Fuego(250, 250);
-		 * 
-		 * EnemyV = new ArrayList<Enemigo>(); EnemyV.add(new Fuego(12, 0));
-		 * EnemyV.add(new Fuego(906, 700));
-		 * 
-		 * EnemyH = new ArrayList<Enemigo>(); EnemyH.add(new Fuego(25, 100));
-		 */
-
-		// Inicializar el arraylist de herramienta: herramienta y agregar nuevos
-		myHerramienta = new Herramienta(0, 0, herramienta);
-		
-		listaHerramienta = new ArrayList<Herramienta>();
-		listaHerramienta.add(new Herramienta(3, 9, herramienta));
-		listaHerramienta.add(new Herramienta(9, 14, herramienta));
 
 		// x y y de Boton Inicio
 		xBotonInicio = 480;
@@ -271,11 +244,13 @@ public class Principal extends PApplet {
 		segundos = 59;
 		minutos = 2;
 
+		// Variable para las vidas del personaje
 		inicio = minutos * 60 + segundos + 3;
 		
+		// Variable para cambiar de imagenes(estado) a medida que aumenta de nivel
 		nivelActual = 0;
 		
-
+		// x y y de pantalla personaje: Personaje seleccionado
 		xPM= 295;
 		yPM = 270;
 		
@@ -347,6 +322,7 @@ public class Principal extends PApplet {
 				image(botonesIns[nivelActual*2+1], xBotonInstrucciones, yBotonInstrucciones);
 			}
 			
+			// Inicializar el arraylist de enemigo: Enemigos y agregar nuevos
 			int x = 300;
 			int y = 0;
 			listaEnemigos = new ArrayList<>();
@@ -357,8 +333,8 @@ public class Principal extends PApplet {
 				x = ene.nextInt(13*67)+67;
 			}
 			
+			// Inicializar el arraylist de herramienta: Herramienta y agregar nuevas
 			myHerramienta = new Herramienta(0, 0, herramienta);
-			
 			listaHerramienta = new ArrayList<Herramienta>();
 			listaHerramienta.add(new Herramienta(3, 9, herramienta));
 			listaHerramienta.add(new Herramienta(9, 14, herramienta));
@@ -378,12 +354,13 @@ public class Principal extends PApplet {
 
 			// Si esta el mouse encima del Boton Atras mostrar imagen Boton Atras Oprimido
 			if (mouseX > xBotonNuevaPartida && mouseX < xBotonNuevaPartida + 58 && mouseY > yBotonNuevaPartida
-					&& mouseY < yBotonNuevaPartida + 71) {
+				&& mouseY < yBotonNuevaPartida + 71) {
 				image(botonesEsce[nivelActual*2+1], xBotonNuevaPartida, yBotonNuevaPartida);
 			}
+			
+			//For para agregar las vidas al personaje
 			for (int i = 0; i < personaje.getVidas(); i++) {
-				image(vidas[nivelActual], 1065 + i*30, 420);
-			}
+				image(vidas[nivelActual], 1065 + i*30, 420);}
 
 			temporizador();
 
@@ -407,25 +384,17 @@ public class Principal extends PApplet {
 				}
 			}
 
-			// extintorH.pintar(this, extintor);
-
-			// For para pintar y mover el Enemigo: Fuego
-			/*
-			 * for (int i = 0; i < EnemyV.size(); i++) { EnemyV.get(i).pintar(this, fuego);
-			 * EnemyV.get(i).moverVertical(fuego);}
-			 */
-
-			// For para pintar y mover el Enemigo: Fuego
+			// Indicar que si ya elimine a los enemigos entonces gano
 			if(listaEnemigos.size()==0) {
 				estado=5;
 				personaje.quitarExtintor();
-				win = false;
-			}
+				win = false;}
+			
+			// For para pintar la Enemigo: Enemigos
 			for (int i = 0; i < listaEnemigos.size(); i++) {
 				Enemigo enemigoActual = listaEnemigos.get(i);
 				enemigoActual.pintar(this, enemigos[nivelActual]);
 				enemigoActual.moverVertical(enemigos[nivelActual]);
-	
 				 if(personaje.haveExtintor()) {
 					 win=true;
 				 }
@@ -454,7 +423,6 @@ public class Principal extends PApplet {
 					}
 				}
 			}
-
 			break;
 
 		case 4:
@@ -464,16 +432,15 @@ public class Principal extends PApplet {
 			image(pantalla[17], 600, 350);
 			imageMode(CORNER);
 
-			// BOTON INSTRUCCIONES NIVEL 1
-			// Imagen Boton Instrucciones Nivel 1
+			// BOTON SIGUIENTE
+			// Imagen Siguiente
 			image(pantalla[4], xBotonInstrucciones, yBotonInstrucciones);
 
-			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton
-			// Instrucciones Oprimido
+			// Si esta el mouse encima del Boton Siguiente mostrar imagen Boton
+			// Siguiente Oprimido
 			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
-					&& mouseY < yBotonInstrucciones + 107) {
-				image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);
-			}
+				&& mouseY < yBotonInstrucciones + 107) {
+				image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);}
 			break;
 			
 		case 5:
@@ -483,22 +450,21 @@ public class Principal extends PApplet {
 			image(pantalla[20], 600, 350);
 			imageMode(CORNER);
 
-			// BOTON INSTRUCCIONES NIVEL 1
-			// Imagen Boton Instrucciones Nivel 1
+			// BOTON SIGUIENTE
+			// Imagen Boton Siguiente
 			image(pantalla[21], xBotonInstrucciones, yBotonInstrucciones);
 
-			// Si esta el mouse encima del Boton Instrucciones mostrar imagen Boton
-			// Instrucciones Oprimido
+			// Si esta el mouse encima del Boton Siguiente mostrar imagen Boton
+			// Siguiente Oprimido
 			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
 				&& mouseY < yBotonInstrucciones + 107) {
-				image(pantalla[22], xBotonInstrucciones, yBotonInstrucciones);
-			}
+				image(pantalla[22], xBotonInstrucciones, yBotonInstrucciones);}
 			break;
 			
 		case 6:
 			// PUZZLE
 			// Puzzle Nivel 1
-			puzzleN1.pintar(this);
+			puzzleN1.pintar(this, puzzle);
 			if(puzzleN1.win()) {
 				estado =3;
 				mapa.openDoor();
@@ -511,17 +477,18 @@ public class Principal extends PApplet {
 			image(pantalla[23], 600, 350);
 			imageMode(CORNER);
 			
+			// Si esta el mouse encima del Boton Mujer mostrar imagen Boton
+			// Mujer Oprimido
 			if (mouseX > xPM && mouseX < xPM + 255 && mouseY > yPM
 					&& mouseY < yBotonInstrucciones + 252) {
-					image(personajeSeleccionado[0], xPM, yPM);
-				}
+					image(personajeSeleccionado[0], xPM, yPM);}
 				
-				if (mouseX > xPH && mouseX < xPH + 256 && mouseY > yPH
-					&& mouseY < yPH + 238) {
-					image(personajeSeleccionado[1], xPH, yPH);
-				}
+			// Si esta el mouse encima del Boton Mujer mostrar imagen Boton
+			// Mujer Oprimido
+			if (mouseX > xPH && mouseX < xPH + 256 && mouseY > yPH
+				&& mouseY < yPH + 238) {
+				image(personajeSeleccionado[1], xPH, yPH);}
 			break;
-			
 		}
 	}
 
@@ -554,14 +521,14 @@ public class Principal extends PApplet {
 
 	@Override
 	public void keyPressed() {
+		//Para la barra espaciadora
 		if(keyCode == 32) {
 			if((personaje.getX()-34>= 8*64 - 67) && (personaje.getX()-34<= 8*64 + 67)) {
 				if((personaje.getY()-45>= 9*64 - 67) && (personaje.getY()-45<= 9*64 + 67)) {
-					estado = 6;
-				}
+					estado = 6;}
 			}
-
-	}
+		}
+		
 		switch (key) {
 		case 'w':
 			personaje.mover("arriba");
@@ -581,9 +548,10 @@ public class Principal extends PApplet {
 
 	@Override
 	public void mousePressed() {
+		//Para que lea el mousePressed de la clase Puzzle en la principal
 		if (estado == 6) {
-			puzzleN1.mousePressed(this);
-		}
+			puzzleN1.mousePressed(this);}
+		
 		switch (estado) {
 		case 0:
 			// INICIO
@@ -605,7 +573,7 @@ public class Principal extends PApplet {
 			// Cuando se le de clic en Boton Inicio pasar a la pantalla Instrucciones
 			// Generales
 			if (mouseX > xBotonInicio && mouseX < xBotonInicio + 106 && mouseY > yBotonInicio
-					&& mouseY < yBotonInicio + 107) {
+				&& mouseY < yBotonInicio + 107) {
 				estado = 1;
 			}
 
@@ -629,10 +597,10 @@ public class Principal extends PApplet {
 				image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);
 			}
 
-			// Cuando se le de clic en Boton Inicio pasar a la pantalla Instrucciones
-			// Generales
+			// Cuando se le de clic en Boton Inicio pasar a la pantalla Seleccion de
+			// Personaje
 			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
-					&& mouseY < yBotonInstrucciones + 107) {
+				&& mouseY < yBotonInstrucciones + 107) {
 				estado = 7;
 			}
 
@@ -656,13 +624,10 @@ public class Principal extends PApplet {
 				image(pantalla[8], xBotonInstrucciones, yBotonInstrucciones);
 			}
 
-			// Cuando se le de clic en Boton Inicio pasar a la pantalla Instrucciones
-			// Generales
+			// Cuando se le de clic en Boton Instrucciones pasar a la pantalla Escenario Nivel (i)
 			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
-					&& mouseY < yBotonInstrucciones + 107) {
-				estado = 3;
-			}
-
+				&& mouseY < yBotonInstrucciones + 107) {
+				estado = 3;}
 			break;
 
 		case 3:
@@ -678,13 +643,13 @@ public class Principal extends PApplet {
 
 			// Si esta el mouse encima del Boton Atras mostrar imagen Boton Atras Oprimido
 			if (mouseX > xBotonNuevaPartida && mouseX < xBotonNuevaPartida + 58 && mouseY > yBotonNuevaPartida
-					&& mouseY < yBotonNuevaPartida + 71) {
+				&& mouseY < yBotonNuevaPartida + 71) {
 				image(pantalla[18], xBotonNuevaPartida, yBotonNuevaPartida);
 			}
 
-			// Cuando se le de clic en Boton Atras pasar a la pantalla de Inicio
+			// Cuando se le de clic en Boton Nueva Partida pasar a la pantalla de Inicio
 			if (mouseX > xBotonNuevaPartida && mouseX < xBotonNuevaPartida + 58 && mouseY > yBotonNuevaPartida
-					&& mouseY < yBotonNuevaPartida + 71) {
+				&& mouseY < yBotonNuevaPartida + 71) {
 				estado = 0;
 			}
 
@@ -698,20 +663,11 @@ public class Principal extends PApplet {
 				listaHerramienta.get(i).pintar(this, herramienta);
 			}
 
-			// extintorH.pintar(this, extintor);
-
-			// For para pintar y mover el Enemigo: Fuego
-			/*
-			 * for (int i = 0; i < EnemyV.size(); i++) { EnemyV.get(i).pintar(this, fuego);
-			 * EnemyV.get(i).moverVertical(fuego);}
-			 */
-
 			// For para pintar y mover el Enemigo: Fuego
 			for (int i = 0; i < listaEnemigos.size(); i++) {
 				Fuego enemigoActual = listaEnemigos.get(i);
 				enemigoActual.pintar(this, fuego);
-				enemigoActual.moverVertical(fuego);
-			}
+				enemigoActual.moverVertical(fuego);}
 			break;
 
 		case 4:
@@ -732,7 +688,7 @@ public class Principal extends PApplet {
 				image(pantalla[5], xBotonInstrucciones, yBotonInstrucciones);
 			}
 
-			// Cuando se le de clic en Boton Siguiente pasar a la pantalla de Inicio
+			// Cuando se le de clic en Boton Siguiente pasar a la pantalla de Inicio y 
 			if (mouseX > xBotonInstrucciones && mouseX < xBotonInstrucciones + 106 && mouseY > yBotonInstrucciones
 				&& mouseY < yBotonInstrucciones + 107) {
 				estado = 0;

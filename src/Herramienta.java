@@ -51,4 +51,5 @@ public  class Herramienta {
 	
 	protected abstract PImage loadImage(String string);*/
 	
+	
 }

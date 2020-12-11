@@ -1,18 +1,24 @@
 import java.util.Random;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
+import processing.core.PImage;
 
 public class PuzzleN1 extends PApplet{
-	int xBolitaPrincipal;
-	int yBolitaPrincipal;
+	// PImage Personaje: Mujer
+		Principal refPrincipal;
+		PImage puzzle;
 	
-	int xBolitas [];
-	int yBolitas [];
+		int xBolitaPrincipal;
+		int yBolitaPrincipal;
 	
-	boolean atrapado [];
-	boolean visible [];
+		int xBolitas [];
+		int yBolitas [];
+	
+		boolean atrapado [];
+		boolean visible [];
 
-	int tamaño;
+		int tamaño;
 	
 	public PuzzleN1(PApplet app, int size) {
 		xBolitaPrincipal = app.width / 2;
@@ -36,14 +42,16 @@ public class PuzzleN1 extends PApplet{
 		tamaño = 90;
 	}
 	
-	public void pintar(PApplet app) {
-		app.background(255, 236, 245);
-		app.fill(218, 0, 172);
+	public void pintar(PApplet app, PImage puzzle) {
+		app.imageMode(PConstants.CENTER);
+		app.image(puzzle, 600, 350);
+		app.imageMode(PConstants.CORNER);
+		app.fill(255);
 		app.ellipse(xBolitaPrincipal, yBolitaPrincipal, tamaño, tamaño);
 		
 		for (int i = 0; i < visible.length; i++) {
 			if (visible [i] == true) {
-				app.fill(255);
+				app.fill(255, 153, 0);
 				app.ellipse(xBolitas[i], yBolitas[i], 40, 40);
 			}
 		}
