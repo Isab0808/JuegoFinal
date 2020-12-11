@@ -30,7 +30,6 @@ public class Personaje {
 	public void pintar(PApplet app, PImage personajePrincipal, PImage extintor) {
 		app.imageMode(PConstants.CENTER);
 		app.image(personajePrincipal, x, y);
-		System.out.println("bjjmh");
 		if (refExtintorInventario != null) {
 			refExtintorInventario.pintar(app, extintor, this);
 			tiempo();
